@@ -335,54 +335,6 @@ section {
     color: #555;
 }
 
-
-/* Footer Styles */
-footer {
-    background: #34495e;
-    color: #fff;
-    text-align: center;
-    padding: 20px 0;
-    margin-top: 30px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        width: 90%;
-    }
-
-    header h1,
-    header nav {
-        float: none;
-        text-align: center;
-    }
-
-    header nav ul li {
-        display: block;
-        padding: 5px 0;
-    }
-
-    .hero h2 {
-        font-size: 2em;
-    }
-
-    .hero p {
-        font-size: 1em;
-    }
-
-    .room-grid, .team-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .room-listing .room-item {
-        flex-direction: column;
-    }
-
-    .room-listing .room-item img {
-        height: 200px; /* Adjust height for smaller screens */
-    }
-}
-
 /* Booking Form Specific Styles */
 .booking-form {
     max-width: 700px;
@@ -450,8 +402,52 @@ footer {
     margin-top: 20px;
 }
 
-/* Responsive adjustments for booking form */
-@media (max-width: 600px) {
+/* Footer Styles */
+footer {
+    background: #34495e;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+
+    header h1,
+    header nav {
+        float: none;
+        text-align: center;
+    }
+
+    header nav ul li {
+        display: block;
+        padding: 5px 0;
+    }
+
+    .hero h2 {
+        font-size: 2em;
+    }
+
+    .hero p {
+        font-size: 1em;
+    }
+
+    .room-grid, .team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .room-listing .room-item {
+        flex-direction: column;
+    }
+
+    .room-listing .room-item img {
+        height: 200px; /* Adjust height for smaller screens */
+    }
+
     .booking-form {
         padding: 20px;
     }

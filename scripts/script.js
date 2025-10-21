@@ -1,10 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Sunview Hotels scripts loaded!');
 
+    // --- New: Hamburger Menu Toggle Logic ---
+    const burgerMenu = document.querySelector('.burger-menu');
+    const navMenu = document.querySelector('header nav');
+
+    if (burgerMenu && navMenu) {
+        burgerMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            burgerMenu.classList.toggle('active');
+        });
+        
+        // Close menu when a link is clicked (optional, but good for UX)
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                burgerMenu.classList.remove('active');
+            });
+        });
+    }
+    // -----------------------------------------
+
+
     const viewRoomsBtn = document.querySelector('.hero .btn');
     if (viewRoomsBtn) {
+        // Fix: Changed console.log to actual navigation to rooms.html
         viewRoomsBtn.addEventListener('click', (e) => {
-            console.log('View Rooms button clicked!');
+            e.preventDefault(); // Stop the default link behavior for a moment
+            window.location.href = viewRoomsBtn.href;
         });
     }
 
@@ -13,9 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
+            // Fix: Ensured IDs are correctly referenced
+            const name = document.getElementById('name') ? document.getElementById('name').value : '';
+            const email = document.getElementById('email') ? document.getElementById('email').value : '';
+            const message = document.getElementById('message') ? document.getElementById('message').value : '';
 
             if (name && email && message) {
                 alert(`Thank you, ${name}! Your message has been sent. We will respond to ${email} shortly.`);
@@ -67,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkOutInput = document.getElementById('check-out');
 
     if (checkInInput) {
+        // Fix: Use a safer ISO string slice to only get the date part
         checkInInput.min = today.toISOString().split('T')[0];
     }
     if (checkOutInput) {

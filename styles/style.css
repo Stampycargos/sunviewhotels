@@ -15,7 +15,7 @@ body {
     padding: 20px 0;
 }
 
-/* --- Header Styles --- */
+/* --- Header Styles: FIXED DESKTOP WITH FLEXBOX --- */
 header {
     background: #2c3e50;
     color: #fff;
@@ -23,25 +23,25 @@ header {
     border-bottom: 3px solid #e67e22;
 }
 
-/* Clearfix to contain floats in the header */
-header .container::after {
-    content: "";
-    display: table;
-    clear: both;
+/* FIX 1: Use Flexbox on the container for perfect vertical alignment on desktop */
+header .container {
+    display: flex;
+    justify-content: space-between; /* Pushes H1 to left, NAV/Burger to right */
+    align-items: center; /* CRITICAL: Vertically centers H1 and NAV */
+    padding: 20px 0; 
 }
 
 header h1 {
-    float: left;
     margin: 0;
     padding: 0;
     font-size: 2.5em;
-    line-height: 1.2; /* Ensure vertical alignment with nav on desktop */
+    line-height: 1.2;
 }
 
 header nav {
-    float: right;
-    margin-top: 10px;
-    transition: transform 0.3s ease-in-out; /* For mobile slide effect */
+    transition: transform 0.3s ease-in-out; 
+    /* FIX 2: Ensure Z-index is high enough to cover hero content when active */
+    z-index: 100; 
 }
 
 header ul {
@@ -51,7 +51,7 @@ header ul {
 }
 
 header li {
-    display: inline;
+    display: inline-block; 
     padding: 0 15px;
 }
 
@@ -60,8 +60,8 @@ header a {
     text-decoration: none;
     text-transform: uppercase;
     font-size: 16px;
-    display: block; /* Important for full click area on mobile */
-    padding: 5px 0; /* Add padding for better touch targets on mobile */
+    display: inline-block; 
+    padding: 5px 0;
 }
 
 header a:hover {
@@ -69,15 +69,14 @@ header a:hover {
     font-weight: bold;
 }
 
-/* --- Hamburger Menu Styles (New) --- */
+/* --- Hamburger Menu Styles --- */
 .burger-menu {
     display: none; /* Hidden by default on desktop */
-    float: right;
     padding: 10px;
     cursor: pointer;
     background: transparent;
     border: none;
-    z-index: 100; /* Ensure it's above other elements */
+    z-index: 101; /* Must be higher than nav (100) and hero (1) */
 }
 
 .burger-bar {
@@ -101,7 +100,6 @@ header a:hover {
 .burger-menu.active .bar-bottom {
     transform: rotate(45deg) translate(-5px, -6px);
 }
-/* --- End Hamburger Menu Styles --- */
 
 /* Hero Section */
 .hero {
@@ -112,6 +110,8 @@ header a:hover {
     align-items: center;
     text-align: center;
     position: relative;
+    /* Ensure hero is lower than mobile nav */
+    z-index: 1; 
 }
 
 .hero::before {
@@ -148,8 +148,8 @@ header a:hover {
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
-    border: none; /* Fix: Add border: none; for buttons */
-    cursor: pointer; /* Fix: Add cursor: pointer; for buttons */
+    border: none;
+    cursor: pointer;
 }
 
 .btn:hover {
@@ -182,7 +182,7 @@ header a:hover {
     border-radius: 3px;
     font-size: 0.9em;
     transition: background-color 0.3s ease;
-    border: none; /* Fix: Add border: none; for buttons */
+    border: none;
     cursor: pointer;
 }
 
@@ -203,7 +203,7 @@ section {
 }
 
 .content-section, .team-section, .map-section {
-    text-align: left; /* Align text left for content sections */
+    text-align: left;
 }
 
 
@@ -320,12 +320,12 @@ section {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    box-sizing: border-box; /* Ensures padding doesn't add to the width */
+    box-sizing: border-box; 
     font-size: 1em;
 }
 
 .contact-form textarea {
-    resize: vertical; /* Allow vertical resizing */
+    resize: vertical; 
 }
 
 .map-section iframe {
@@ -431,14 +431,14 @@ section {
 }
 
 .booking-form select {
-    appearance: none; /* Remove default arrow on select for custom styling */
+    appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2C118.8L146.2%2C259.6L5.4%2C118.8c-7.9-7.9-7.9-20.7%2C0-28.6c7.9-7.9%2C20.7-7.9%2C28.6%2C0l112.2%2C112.2L258.4%2C90.2c7.9-7.9%2C20.7-7.9%2C28.6%2C0C294.9%2C98.1%2C294.9%2C110.9%2C287%2C118.8z%22%2F%3E%3C%2Fsvg%3E');
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 12px;
-    padding-right: 30px; /* Make space for the custom arrow */
+    padding-right: 30px;
 }
 
 .booking-form textarea {
@@ -461,16 +461,21 @@ footer {
     margin-top: 30px;
 }
 
-/* --- Responsive Design --- */
+/* --- Responsive Design (Mobile View) --- */
 @media (max-width: 768px) {
     .container {
         width: 90%;
+        padding: 0;
+    }
+    
+    /* Mobile header container: Adjust padding for edges */
+    header .container {
+        padding: 1rem 5%; 
+        min-height: initial;
     }
 
     header h1 {
-        float: none;
-        text-align: left; /* Keep logo/title left-aligned */
-        padding-top: 5px; /* Adjust spacing */
+        text-align: left;
     }
     
     /* Show the hamburger menu button */
@@ -478,23 +483,24 @@ footer {
         display: block;
     }
     
-    /* Hide the default desktop navigation and make it full-width/stacking */
+    /* Mobile nav configuration */
     header nav {
-        float: none;
         width: 100%;
         margin-top: 0;
-        max-height: 0; /* Initially hidden */
+        max-height: 0;
         overflow: hidden;
-        position: absolute; /* Take it out of the flow */
-        top: 60px; /* Position below header (adjust based on header height) */
+        position: absolute; 
+        /* FIX 3: Calculate the header height based on 1rem padding top/bottom + h1 height (approx 66px) */
+        top: 66px; 
         left: 0;
-        background: #2c3e50; /* Full background for the menu */
+        background: #2c3e50;
         border-top: 1px solid #e67e22;
+        box-sizing: border-box; 
     }
 
     /* JavaScript toggles this class when the menu is active */
     header nav.active {
-        max-height: 500px; /* Large enough to show all links */
+        max-height: 500px;
     }
 
     header nav ul {
@@ -502,7 +508,7 @@ footer {
     }
 
     header nav ul li {
-        display: block;
+        display: block; 
         text-align: center;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
@@ -512,17 +518,21 @@ footer {
     }
 
     header a {
+        display: block; 
         padding: 10px 0;
     }
 
+    /* FIX 4: PUSH HERO DOWN on mobile to compensate for absolute nav */
+    .hero {
+        /* This pushes the hero down by the height of the fixed header area */
+        margin-top: 66px; 
+    }
+    
+    /* General mobile layout adjustments */
     .hero h2 {
         font-size: 2em;
     }
-
-    .hero p {
-        font-size: 1em;
-    }
-
+    
     .room-grid, .team-grid {
         grid-template-columns: 1fr;
     }
@@ -532,7 +542,7 @@ footer {
     }
 
     .room-listing .room-item img {
-        height: 200px; /* Adjust height for smaller screens */
+        height: 200px;
     }
 
     .booking-form {

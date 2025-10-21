@@ -23,11 +23,11 @@ header {
     border-bottom: 3px solid #e67e22;
 }
 
-/* FIX 1: Use Flexbox on the container for perfect vertical alignment on desktop */
+/* FIX 1: Use Flexbox for perfect vertical alignment on desktop */
 header .container {
     display: flex;
-    justify-content: space-between; /* Pushes H1 to left, NAV/Burger to right */
-    align-items: center; /* CRITICAL: Vertically centers H1 and NAV */
+    justify-content: space-between; 
+    align-items: center; 
     padding: 20px 0; 
 }
 
@@ -40,7 +40,7 @@ header h1 {
 
 header nav {
     transition: transform 0.3s ease-in-out; 
-    z-index: 100; 
+    z-index: 100; /* Ensure nav is above all main content when active */
 }
 
 header ul {
@@ -70,12 +70,12 @@ header a:hover {
 
 /* --- Hamburger Menu Styles --- */
 .burger-menu {
-    display: none; /* Hidden by default on desktop */
+    display: none; 
     padding: 10px;
     cursor: pointer;
     background: transparent;
     border: none;
-    z-index: 101; 
+    z-index: 101; /* Must be higher than nav (100) */
 }
 
 .burger-bar {
@@ -87,7 +87,6 @@ header a:hover {
     transition: all 0.3s ease-in-out;
 }
 
-/* Transformation for the 'X' icon when active */
 .burger-menu.active .bar-top {
     transform: rotate(-45deg) translate(-5px, 6px);
 }
@@ -100,19 +99,31 @@ header a:hover {
     transform: rotate(45deg) translate(-5px, -6px);
 }
 
-/* Hero Section */
+/* --- Hero Section: Styles for HTML Image Placement --- */
 .hero {
-    /* *** MODIFIED: Set the custom image path here *** */
-    background: url('images/SVH.webp') no-repeat center center/cover;
+    /* Set position relative to allow absolute positioning of image/overlay */
+    position: relative;
     color: #fff;
     min-height: 400px;
     display: flex;
     align-items: center;
     text-align: center;
-    position: relative;
+    overflow: hidden; 
     z-index: 1; 
 }
 
+/* Style the image container and image to cover the entire section */
+.hero .hero-image, .hero .hero-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    z-index: -2; /* Place image behind content and overlay */
+}
+
+/* The dark overlay */
 .hero::before {
     content: '';
     position: absolute;
@@ -121,11 +132,17 @@ header a:hover {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); /* Overlay for readability */
+    z-index: -1; /* Place overlay on top of image */
 }
 
-.hero .container {
-    position: relative;
+/* Ensure the text content is correctly layered */
+.hero .hero-content {
+    position: relative; 
     z-index: 1;
+    width: 100%;
+    /* Override standard container margin/padding for alignment */
+    margin: auto;
+    padding: 0; 
 }
 
 .hero h2 {
@@ -227,7 +244,7 @@ section {
     border-radius: 8px;
     padding: 20px;
     text-align: left;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2, 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .room-card img {
@@ -467,7 +484,6 @@ footer {
         padding: 0;
     }
     
-    /* Mobile header container: Adjust padding for edges */
     header .container {
         padding: 1rem 5%; 
         min-height: initial;
@@ -477,19 +493,16 @@ footer {
         text-align: left;
     }
     
-    /* Show the hamburger menu button */
     .burger-menu {
         display: block;
     }
     
-    /* Mobile nav configuration */
     header nav {
         width: 100%;
         margin-top: 0;
         max-height: 0;
         overflow: hidden;
         position: absolute; 
-        /* FIX: Align top correctly */
         top: 66px; 
         left: 0;
         background: #2c3e50;
@@ -497,7 +510,6 @@ footer {
         box-sizing: border-box; 
     }
 
-    /* JavaScript toggles this class when the menu is active */
     header nav.active {
         max-height: 500px;
     }

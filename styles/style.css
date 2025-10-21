@@ -40,7 +40,6 @@ header h1 {
 
 header nav {
     transition: transform 0.3s ease-in-out; 
-    /* FIX 2: Ensure Z-index is high enough to cover hero content when active */
     z-index: 100; 
 }
 
@@ -76,7 +75,7 @@ header a:hover {
     cursor: pointer;
     background: transparent;
     border: none;
-    z-index: 101; /* Must be higher than nav (100) and hero (1) */
+    z-index: 101; 
 }
 
 .burger-bar {
@@ -103,14 +102,14 @@ header a:hover {
 
 /* Hero Section */
 .hero {
-    background: url('https://via.placeholder.com/1500x500?text=Sunview+Hotel+Hero') no-repeat center center/cover;
+    /* *** MODIFIED: Set the custom image path here *** */
+    background: url('images/SVH.webp') no-repeat center center/cover;
     color: #fff;
     min-height: 400px;
     display: flex;
     align-items: center;
     text-align: center;
     position: relative;
-    /* Ensure hero is lower than mobile nav */
     z-index: 1; 
 }
 
@@ -490,7 +489,7 @@ footer {
         max-height: 0;
         overflow: hidden;
         position: absolute; 
-        /* FIX 3: Calculate the header height based on 1rem padding top/bottom + h1 height (approx 66px) */
+        /* FIX: Align top correctly */
         top: 66px; 
         left: 0;
         background: #2c3e50;
@@ -522,9 +521,8 @@ footer {
         padding: 10px 0;
     }
 
-    /* FIX 4: PUSH HERO DOWN on mobile to compensate for absolute nav */
+    /* FIX: PUSH HERO DOWN on mobile to compensate for absolute nav */
     .hero {
-        /* This pushes the hero down by the height of the fixed header area */
         margin-top: 66px; 
     }
     
